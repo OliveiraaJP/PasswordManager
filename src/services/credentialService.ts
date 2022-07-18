@@ -1,6 +1,7 @@
 import { CredentialDataObj } from "../interfaces/credentialInterface.js"
 import * as credentialRepository from "../repositories/credentialRepository.js"
 import * as crypt from "../utils/cryptr.js"
+import * as decrypter from "../utils/decryptAllPasses.js"
 import { AppError } from "../utils/error.js"
 
 
@@ -23,4 +24,15 @@ export const createCredential = async (credentialObj: CredentialDataObj) => {
     const cryptPass = await crypt.encrypt(password)
     const sentCredential = {...credentialObj, password: cryptPass}
     await credentialRepository.createCredential(sentCredential)
+}
+
+export const getAllCredentials = async(userId: number) => {
+    const credentials = await credentialRepository.getAllCredentials(userId)
+    if(!credentials){
+        throw new AppError(404, 'Credentials not found! :O ')
+    }
+
+    const decryptAllPasses = await decrypter.mapToDecrypt(credentials)
+    console.log('hahahaha: ', decryptAllPasses);
+    return decryptAllPasses
 }

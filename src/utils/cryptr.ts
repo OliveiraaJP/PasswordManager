@@ -1,9 +1,10 @@
-import crypt from "cryptr"
+import Cryptr from "cryptr"
+const cryptr = new Cryptr(process.env.CRYPTR_SECRET)
 
 export async function encrypt(password: string) {
-    return crypt.encrypt(password)
+    return cryptr.encrypt(password)
 }
 
 export async function decrypt(password: string) {
-    return crypt.decrypt(password)
+    return cryptr.decrypt(password)
 }

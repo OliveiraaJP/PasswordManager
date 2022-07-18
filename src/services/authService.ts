@@ -26,7 +26,7 @@ export const signin = async (loginObj: UserDataLogin) => {
         throw new AppError(404, 'Invalid password!')
     }
     const [jwtUser, jwtId] = [activeUser.user, activeUser.id]
-    const token = jwt.sign({jwtUser, jwtId}, process.env.JWT_SECRET, {expiresIn: '24h'})
+    const token = jwt.sign({jwtUser, jwtId}, process.env.JWT_SECRET, {expiresIn:'24h'})
     chalkLogger.log('service', token)
     return token
 }

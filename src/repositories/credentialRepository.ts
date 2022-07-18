@@ -15,5 +15,9 @@ export async function getCredential(title: string, userId: number) {
 }
 
 export async function createCredential(credentialObj: CredentialDataObj) {
-    return await prisma.credential.create({data:credentialObj})
+    return await prisma.credential.create({ data: credentialObj })
+}
+
+export async function getAllCredentials(userId: number) {
+    return await prisma.credential.findMany({ where: { userId } })
 }
