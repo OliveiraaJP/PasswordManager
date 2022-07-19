@@ -10,7 +10,7 @@ notesRouter.use(tokenValidator)
 
 notesRouter.post("/safenotes", validateSchemaMiddleware(createNoteSchema), createNote)
 notesRouter.get("/safenotes", getAllNotes)
-notesRouter.get("/safenotes/:id", getOneNote)
-notesRouter.delete("/safenotes/:id", deleteNote)
+notesRouter.get("/safenotes/note/:id", getOneNote)
+notesRouter.delete("/safenotes/note/:id", deleteNote)
 
 export default notesRouter;

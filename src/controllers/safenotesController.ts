@@ -7,7 +7,7 @@ import * as noteService from "../services/safenoteService.js"
 export async function createNote(req: Request, res: Response) {
     const userId = res.locals.userId
     const safeNoteReq: NoteDataReq = req.body
-    const safeNoteObj: NoteDataObj = {...safeNoteReq, userId}
+    const safeNoteObj: NoteDataObj = { ...safeNoteReq, userId }
     await noteService.hasUser(userId)
     await noteService.hasNote(safeNoteObj.title)
     await noteService.createNote(safeNoteObj)
@@ -20,10 +20,18 @@ export async function getAllNotes(req: Request, res: Response) {
     await noteService.hasUser(userId)
     const notes = await noteService.getAllNotes(userId)
     chalkLogger.logObject('controller', notes)
-    res.status(201).send(notes)}
+    res.status(201).send(notes)
+}
 
 export async function getOneNote(req: Request, res: Response) {
-    res.status(201).send('Note create! :D')}
+    const userId = res.locals.userId
+    const noteId: number = Number(req.params.id)
+    await noteService.hasUser(userId)
+    const note = await noteService.getOneNote(noteId, userId)
+    chalkLogger.logObject('controller', note)
+    res.status(201).send(note)
+}
 
 export async function deleteNote(req: Request, res: Response) {
-    res.status(201).send('Note deleted! :D')}
+    res.status(201).send('Note deleted! :D')
+}

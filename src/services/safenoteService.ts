@@ -27,3 +27,15 @@ export const getAllNotes = async (userId: number) => {
     }
     return notes
 }
+
+export const getOneNote =async (noteId:number, userId: number) => {
+    const note = await noteRepository.getOneNote(noteId)
+    if(!note){
+        throw new AppError(404, 'Note not found! xD')
+    }
+
+    if(note.userId !== userId){
+        throw new AppError(401, 'Unauthorized acess! ;-;')
+    }
+    return note
+}

@@ -16,3 +16,7 @@ export async function createNote(noteObj: NoteDataObj) {
 export async function getAllNotes(userId: number) {
     return await prisma.note.findMany({ where: { userId } })
 }
+
+export async function getOneNote(noteId: number) {
+    return await prisma.note.findFirst({ where: { id: noteId } })
+}
