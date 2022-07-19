@@ -33,5 +33,7 @@ export async function deleteWifi(req: Request, res: Response) {
     const userId = res.locals.userId
     const wifiId: number = Number(req.params.id)
     await wifiService.hasUser(userId) 
-    res.sendStatus(52)
+    await wifiService.deleteWifi(wifiId, userId)
+    chalkLogger.log('controller', 'deleted')
+    res.status(201).send('wifi deleted! xd')
 }

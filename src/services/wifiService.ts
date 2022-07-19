@@ -43,3 +43,16 @@ export const getOneWifi = async (userId: number, wifiId: number) => {
     const decryptPass = crypt.decrypt(password)
     return {...wifi, password: decryptPass}
 }
+
+export const deleteWifi = async (wifiId:number, userId: number) => {
+    const hasWifi = await wifiRepository.getOneWifi(wifiId)
+    if (!hasWifi) {
+        throw new AppError(404, 'Credential not found! :o')
+    }
+
+    if (hasWifi.userId !== userId) {
+        throw new AppError(401, 'Unauthorized credential :x')
+    }
+
+    await wifiRepository.deleteWifi(wifiId)
+}

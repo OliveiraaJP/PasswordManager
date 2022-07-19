@@ -18,3 +18,7 @@ export async function getAllWifis(userId: number) {
 export async function getOneWifi(wifiId: number) {
     return await prisma.wifi.findFirst({ where: { id: wifiId } })
 }
+
+export async function deleteWifi(wifiId:number) {
+    return await prisma.wifi.delete({where: {id: wifiId}})
+}
