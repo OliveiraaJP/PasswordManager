@@ -32,4 +32,9 @@ export async function getOneCard(req: Request, res: Response) {
 
 export async function deleteCard(req: Request, res: Response) {
     const userId = res.locals.userId
+    const cardId: number = Number(req.params.id)
+    await cardService.hasUser(userId)
+    await cardService.deleteCard(cardId, userId)
+    chalkLogger.log('controller', 'deleted')
+    res.status(201).send("deleted card! :D")
 }

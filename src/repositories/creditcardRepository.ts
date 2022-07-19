@@ -30,3 +30,7 @@ export async function getAllCards(userId: number) {
 export async function getOneCard(cardId: number) {
     return await prisma.card.findFirst({ where: { id: cardId } })
 }
+
+export async function deleteCard(cardId: number) {
+    return await prisma.card.delete({ where: { id: cardId } })
+}

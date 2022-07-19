@@ -57,3 +57,16 @@ export const getOneCard = async (userId: number, cardId: number) => {
 
     return { ...card, password: decryptPass, securityCode: decryptCode }
 }
+
+export const deleteCard =async (cardId: number, userId: number) => {
+    const hasCard = await cardRepository.getOneCard(cardId)
+    if (!hasCard) {
+        throw new AppError(404, 'Credential not found! :o')
+    }
+
+    if (hasCard.userId !== userId) {
+        throw new AppError(401, 'Unauthorized credential :x')
+    }
+
+    await cardRepository.deleteCard(cardId)
+}
