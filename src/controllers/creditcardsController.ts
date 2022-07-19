@@ -15,10 +15,19 @@ export async function createCard(req: Request, res: Response) {
 
 export async function getAllCards(req: Request, res: Response) {
     const userId = res.locals.userId
+    await cardService.hasUser(userId)
+    const cards = await cardService.getAllCards(userId)
+    chalkLogger.logObject('controller', cards)
+    res.status(201).send(cards)
 }
 
 export async function getOneCard(req: Request, res: Response) {
     const userId = res.locals.userId
+    const cardId: number = Number(req.params.id)
+    await cardService.hasUser(userId)
+    const card = await cardService.getOneCard(userId, cardId)
+    //chalkLogger.logObject('controller', card)
+    res.status(201).send(card)
 }
 
 export async function deleteCard(req: Request, res: Response) {

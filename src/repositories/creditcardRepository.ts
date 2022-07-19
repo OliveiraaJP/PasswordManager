@@ -18,7 +18,11 @@ export async function getTitle(title: string, userId: number) {
     })
 }
 
-export async function createCard (cardObj: CardDataObj) {
+export async function createCard(cardObj: CardDataObj) {
     chalkLogger.logObject('db', cardObj)
-    return await prisma.card.create({data: cardObj})
+    return await prisma.card.create({ data: cardObj })
+}
+
+export async function getAllCards(userId: number) {
+    return await prisma.card.findMany({ where: { userId } })
 }

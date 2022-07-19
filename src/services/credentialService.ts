@@ -36,7 +36,6 @@ export const getAllCredentials = async (userId: number) => {
     if(decryptAllPasses.length === 0 ){
         throw new AppError(404, 'Credentials not found! :ooo')
     }
-    console.log('hahahaha: ', decryptAllPasses);
     return decryptAllPasses
 }
 
