@@ -32,5 +32,10 @@ export async function postCredential(req: Request, res: Response) {
 }
 
 export async function deleteCredential(req: Request, res: Response) {
-
+    const localsId = res.locals.userId
+    const credentialId: number = Number(req.params.id)
+    await credentialService.hasUser(localsId)
+    await credentialService.deleteCredential(credentialId, localsId)
+    chalkLogger.log('controller', 'deleted')
+    res.status(201).send('Credential deleted! :D')
 }

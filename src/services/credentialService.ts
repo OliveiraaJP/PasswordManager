@@ -33,21 +33,37 @@ export const getAllCredentials = async (userId: number) => {
     }
 
     const decryptAllPasses = await decrypter.mapToDecrypt(credentials)
+    if(decryptAllPasses.length === 0 ){
+        throw new AppError(404, 'Credentials not found! :ooo')
+    }
     console.log('hahahaha: ', decryptAllPasses);
     return decryptAllPasses
 }
 
-export const getOneCredential = async (credentialId: number, userId:number) => {
+export const getOneCredential = async (credentialId: number, userId: number) => {
     const hasCredential = await credentialRepository.getOneCredential(credentialId)
-    if(!hasCredential){
+    if (!hasCredential) {
         throw new AppError(404, 'Credential not found! :o')
     }
- 
-    if(hasCredential.userId !== userId){
+
+    if (hasCredential.userId !== userId) {
         throw new AppError(401, 'Unauthorized credential :x')
     }
 
-    const {password} = hasCredential
+    const { password } = hasCredential
     const decryptPass = await decrypter.decrypt(password)
-    return {...hasCredential, password:decryptPass}
+    return { ...hasCredential, password: decryptPass }
+}
+
+export const deleteCredential = async (credentialId: number, userId: number) => {
+    const hasCredential = await credentialRepository.getOneCredential(credentialId)
+    if (!hasCredential) {
+        throw new AppError(404, 'Credential not found! :o')
+    }
+
+    if (hasCredential.userId !== userId) {
+        throw new AppError(401, 'Unauthorized credential :x')
+    }
+
+    await credentialRepository.deleteCredential(credentialId)
 }
