@@ -21,3 +21,7 @@ export async function createCredential(credentialObj: CredentialDataObj) {
 export async function getAllCredentials(userId: number) {
     return await prisma.credential.findMany({ where: { userId } })
 }
+
+export async function getOneCredential(credentialId: number) {
+    return await prisma.credential.findFirst({ where: { id: credentialId } })
+}

@@ -6,5 +6,6 @@ export async function encrypt(password: string) {
 }
 
 export async function decrypt(password: string) {
-    return cryptr.decrypt(password)
+    const pass = await cryptr.decrypt(password)
+    return pass
 }

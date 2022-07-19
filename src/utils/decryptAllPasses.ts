@@ -22,3 +22,7 @@ export async function mapToDecrypt(credentials:any) {
     })
     return res
 }
+
+export async function decrypt(password:string) {
+    return await cryptr.decrypt(password)
+}
