@@ -26,3 +26,7 @@ export async function createCard(cardObj: CardDataObj) {
 export async function getAllCards(userId: number) {
     return await prisma.card.findMany({ where: { userId } })
 }
+
+export async function getOneCard(cardId: number) {
+    return await prisma.card.findFirst({ where: { id: cardId } })
+}

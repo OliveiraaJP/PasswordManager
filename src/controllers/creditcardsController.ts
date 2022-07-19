@@ -26,7 +26,7 @@ export async function getOneCard(req: Request, res: Response) {
     const cardId: number = Number(req.params.id)
     await cardService.hasUser(userId)
     const card = await cardService.getOneCard(userId, cardId)
-    //chalkLogger.logObject('controller', card)
+    chalkLogger.logObject('controller', card)
     res.status(201).send(card)
 }
 
