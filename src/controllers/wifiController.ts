@@ -14,15 +14,24 @@ export async function createWifi(req: Request, res: Response) {
 
 export async function getAllWifis(req: Request, res: Response) {
     const userId = res.locals.userId
-    res.sendStatus(52)
+    await wifiService.hasUser(userId)
+    const wifis = await wifiService.getAllWifis(userId) 
+    chalkLogger.logObject('controller', wifis)
+    res.status(201).send(wifis)
 }
 
 export async function getOneWifi(req: Request, res: Response) {
     const userId = res.locals.userId
-    res.sendStatus(52)
+    const wifiId: number = Number(req.params.id)
+    await wifiService.hasUser(userId) 
+    const wifi = await wifiService.getOneWifi(userId, wifiId) 
+    chalkLogger.logObject('controller', wifi)
+    res.status(201).send(wifi)
 }
 
 export async function deleteWifi(req: Request, res: Response) {
     const userId = res.locals.userId
+    const wifiId: number = Number(req.params.id)
+    await wifiService.hasUser(userId) 
     res.sendStatus(52)
 }

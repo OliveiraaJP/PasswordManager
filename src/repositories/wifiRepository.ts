@@ -8,5 +8,13 @@ export async function getUser(id: number) {
 
 export async function createWifi(wifiObj: WifiDataObj) {
     chalkLogger.logObject('db', wifiObj)
-    return await prisma.wifi.create({data: wifiObj})
+    return await prisma.wifi.create({ data: wifiObj })
+}
+
+export async function getAllWifis(userId: number) {
+    return await prisma.wifi.findMany({ where: { userId } })
+}
+
+export async function getOneWifi(wifiId: number) {
+    return await prisma.wifi.findFirst({ where: { id: wifiId } })
 }

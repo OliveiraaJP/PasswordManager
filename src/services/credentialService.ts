@@ -50,7 +50,7 @@ export const getOneCredential = async (credentialId: number, userId: number) => 
     }
 
     const { password } = hasCredential
-    const decryptPass = await decrypter.decrypt(password)
+    const decryptPass = crypt.decrypt(password)
     return { ...hasCredential, password: decryptPass }
 }
 

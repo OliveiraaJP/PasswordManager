@@ -21,6 +21,11 @@ export async function mapToDecryptCard(cards:any) {
     return res
 }
 
-export async function decrypt(password:string) {
-    return await cryptr.decrypt(password)
+export async function mapToDecryptWifi(wifis:any) {
+    const res = await wifis.map((wifi: any) =>{
+        const { password} = wifi
+        const decryptPass = cryptr.decrypt(password)
+        return {...wifi, password: decryptPass}
+    })
+    return res
 }
