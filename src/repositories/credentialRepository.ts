@@ -8,7 +8,10 @@ export async function getUser(id: number) {
 export async function getCredential(title: string, userId: number) {
     return await prisma.credential.findFirst({
         where: {
-            title: { mode: 'insensitive' }, // insensitive case
+            title: {
+                equals: title
+                , mode: 'insensitive'
+            }, // insensitive case
             userId
         }
     })
