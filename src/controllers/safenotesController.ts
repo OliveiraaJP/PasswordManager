@@ -16,13 +16,14 @@ export async function createNote(req: Request, res: Response) {
 }
 
 export async function getAllNotes(req: Request, res: Response) {
-    res.sendStatus(333)
-}
+    const userId = res.locals.userId
+    await noteService.hasUser(userId)
+    const notes = await noteService.getAllNotes(userId)
+    chalkLogger.logObject('controller', notes)
+    res.status(201).send(notes)}
 
 export async function getOneNote(req: Request, res: Response) {
-    res.sendStatus(333)
-}
+    res.status(201).send('Note create! :D')}
 
 export async function deleteNote(req: Request, res: Response) {
-    res.sendStatus(333)
-}
+    res.status(201).send('Note deleted! :D')}

@@ -12,3 +12,7 @@ export async function getTitle(title: string) {
 export async function createNote(noteObj: NoteDataObj) {
     return await prisma.note.create({ data: noteObj })
 }
+
+export async function getAllNotes(userId: number) {
+    return await prisma.note.findMany({ where: { userId } })
+}

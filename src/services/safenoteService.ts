@@ -19,3 +19,11 @@ export const hasNote = async (titleNote: string) => {
 export const createNote = async (noteObj: NoteDataObj) => {
     await noteRepository.createNote(noteObj)
 }
+
+export const getAllNotes = async (userId: number) => {
+    const notes = await noteRepository.getAllNotes(userId) 
+    if(!notes){
+        throw new AppError(404, 'No notes registered! :x')
+    }
+    return notes
+}
