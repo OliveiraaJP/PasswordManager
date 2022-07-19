@@ -21,21 +21,34 @@ export const createNote = async (noteObj: NoteDataObj) => {
 }
 
 export const getAllNotes = async (userId: number) => {
-    const notes = await noteRepository.getAllNotes(userId) 
-    if(!notes){
+    const notes = await noteRepository.getAllNotes(userId)
+    if (!notes) {
         throw new AppError(404, 'No notes registered! :x')
     }
     return notes
 }
 
-export const getOneNote =async (noteId:number, userId: number) => {
+export const getOneNote = async (noteId: number, userId: number) => {
     const note = await noteRepository.getOneNote(noteId)
-    if(!note){
+    if (!note) {
         throw new AppError(404, 'Note not found! xD')
     }
 
-    if(note.userId !== userId){
+    if (note.userId !== userId) {
         throw new AppError(401, 'Unauthorized acess! ;-;')
     }
     return note
+}
+
+export const deleteNote = async (noteId: number, userId: number) => {
+    const note = await noteRepository.getOneNote(noteId)
+    if (!note) {
+        throw new AppError(404, 'Note not found! xD')
+    }
+
+    if (note.userId !== userId) {
+        throw new AppError(401, 'Unauthorized acess! ;-;')
+    }
+
+    await noteRepository.deleteNote(noteId)
 }

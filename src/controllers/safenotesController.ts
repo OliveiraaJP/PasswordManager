@@ -33,5 +33,10 @@ export async function getOneNote(req: Request, res: Response) {
 }
 
 export async function deleteNote(req: Request, res: Response) {
-    res.status(201).send('Note deleted! :D')
+    const userId = res.locals.userId
+    const noteId: number = Number(req.params.id)
+    await noteService.hasUser(userId)
+    await noteService.deleteNote(noteId, userId)
+    chalkLogger.log('controller', 'deleted')
+    res.status(201).send('deleted note')
 }
